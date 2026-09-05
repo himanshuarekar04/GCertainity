@@ -1,0 +1,16 @@
+{
+  "name": "GCERTAINITY AI ENGINEERING — Geniously Guranteed",
+  "short_name": "GCertainity",
+  "description": "Master Commercial AI Engineering & AI FDE Production. Beat AI automation with real deployed production systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030408",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
