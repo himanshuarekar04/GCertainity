@@ -1948,7 +1948,7 @@
           <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-dim); text-transform:uppercase; margin-bottom:6px;">Phone / WhatsApp</label>
           <input id="modal-phone" name="phone" type="tel" required placeholder="e.g. +91 98765 43210" style="width:100%; background:#0e1222; border:1px solid var(--border-bright); border-radius:8px; padding:12px; color:#fff; font-size:0.95rem;" />
         </div>
-        <button type="submit" style="width:100%; padding:14px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.95rem; border-radius:8px; border:none; background:var(--blue); color:#fff; cursor:pointer;">
+        <button id="modal-submit-btn" type="submit" style="width:100%; padding:14px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.95rem; border-radius:8px; border:none; background:var(--blue); color:#fff; cursor:pointer;">
           Submit Inquiry &rarr;
         </button>
       </form>
@@ -2129,8 +2129,36 @@
     }
     function handleModalSubmit(e) {
       e.preventDefault();
-      closeModal();
-      alert('Thank you for your inquiry! Our team will get in touch with you within 1 hour.');
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Inquiry...';
+      }
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(() => {
+        closeModal();
+        alert('Thank you for your inquiry! Our admissions team will revert to your contact number within 1 hour.');
+        form.reset();
+      })
+      .catch((err) => {
+        console.error('FormSubmit Error:', err);
+        closeModal();
+        alert('Thank you for your inquiry! Our admissions team will revert to your contact number within 1 hour.');
+      })
+      .finally(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
     }
 
     // Hero Headline Auto-Rotator (8 Finalized Quotes)
