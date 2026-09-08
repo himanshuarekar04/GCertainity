@@ -2175,16 +2175,9 @@
         await fetch('https://formsubmit.co/ajax/admissions@gcertainity.com', {
           method: 'POST',
           headers: { 
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify({
-            _subject: 'New General Inquiry — GCertainity',
-            _template: 'table',
-            name: form.querySelector('#modal-name').value,
-            email: form.querySelector('#modal-email').value,
-            phone: form.querySelector('#modal-phone').value
-          })
+          body: new FormData(form)
         });
       } catch (err) {
         console.error('FormSubmit notification error:', err);

@@ -1424,17 +1424,9 @@
         await fetch('https://formsubmit.co/ajax/admissions@gcertainity.com', {
           method: 'POST',
           headers: { 
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify({
-            _subject: 'New Institutional Partnership Inquiry — GCertainity',
-            _template: 'table',
-            institution_name: form.querySelector('#inst-name').value,
-            contact_person: form.querySelector('#contact-name').value,
-            email: form.querySelector('#contact-email').value,
-            phone: form.querySelector('#contact-phone').value
-          })
+          body: new FormData(form)
         });
       } catch (err) {
         console.error('FormSubmit notification error:', err);

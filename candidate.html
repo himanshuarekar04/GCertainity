@@ -1406,18 +1406,9 @@
         await fetch('https://formsubmit.co/ajax/admissions@gcertainity.com', {
           method: 'POST',
           headers: { 
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify({
-            _subject: 'New Candidate Fellowship Application — GCertainity',
-            _template: 'table',
-            name: form.querySelector('#e-name').value,
-            email: form.querySelector('#e-email').value,
-            phone: form.querySelector('#e-phone').value,
-            academic_stage: form.querySelector('#e-stream').value,
-            intended_path: form.querySelector('#e-goal').value
-          })
+          body: new FormData(form)
         });
       } catch (err) {
         console.error('FormSubmit notification error:', err);
