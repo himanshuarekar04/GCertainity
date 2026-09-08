@@ -1301,11 +1301,33 @@
     function openModal() {
       document.getElementById('enrollModal').classList.add('open');
       document.body.style.overflow = 'hidden';
+      if (window.location.hash !== '#enroll') {
+        history.pushState({ modal: 'enroll' }, '', '#enroll');
+      }
     }
     function closeModal() {
       document.getElementById('enrollModal').classList.remove('open');
       document.body.style.overflow = '';
+      if (window.location.hash === '#enroll' || window.location.hash === '#apply' || window.location.hash.startsWith('#inquir')) {
+        history.pushState(null, '', window.location.pathname + window.location.search);
+      }
     }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const hash = window.location.hash;
+      if (hash === '#enroll' || hash === '#apply' || hash.startsWith('#inquir')) {
+        openModal();
+      }
+    });
+
+    window.addEventListener('popstate', function() {
+      const hash = window.location.hash;
+      if (hash === '#enroll' || hash === '#apply' || hash.startsWith('#inquir')) {
+        openModal();
+      } else {
+        closeModal();
+      }
+    });
     function openLegalModal(type) {
       const modal = document.getElementById('legalModal');
       const tag = document.getElementById('legalTag');

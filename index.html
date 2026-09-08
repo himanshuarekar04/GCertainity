@@ -2281,7 +2281,7 @@
       }, 7500);
     })();
 
-    // Modal Handlers & FormSubmit Integration
+    // Modal Handlers & FormSubmit Integration & Deep Linking
     function openModal(type) {
       const modal = document.getElementById('gModal');
       if (!modal) return;
@@ -2294,26 +2294,64 @@
         if (heading) heading.textContent = 'Submit Institutional Partnership Inquiry';
         if (sub) sub.textContent = 'Our institutional leadership team will revert to your inquiry within 1 hour.';
         if (subjectInput) subjectInput.value = 'New Institutional Partnership Inquiry — GCertainity';
+        if (window.location.hash !== '#inquire-institution') {
+          history.pushState({ modal: 'institution' }, '', '#inquire-institution');
+        }
       } else if (type === 'learner') {
         if (heading) heading.textContent = 'Apply for the Candidate Fellowship';
         if (sub) sub.textContent = 'Our admissions team will revert to your candidate inquiry within 1 hour.';
         if (subjectInput) subjectInput.value = 'New Candidate Fellowship Inquiry — GCertainity';
+        if (window.location.hash !== '#inquire-fellowship') {
+          history.pushState({ modal: 'learner' }, '', '#inquire-fellowship');
+        }
       } else {
         if (heading) heading.textContent = 'Submit Your Inquiry';
         if (sub) sub.textContent = 'Fill out your details below and our team will revert to your inquiry within 1 hour.';
         if (subjectInput) subjectInput.value = 'New General Inquiry — GCertainity';
+        if (window.location.hash !== '#inquiry') {
+          history.pushState({ modal: 'general' }, '', '#inquiry');
+        }
       }
 
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
+
     function closeModal() {
       const modal = document.getElementById('gModal');
       if (modal) {
         modal.classList.remove('open');
         document.body.style.overflow = '';
+        if (window.location.hash.startsWith('#inquir') || window.location.hash === '#apply' || window.location.hash === '#enroll') {
+          history.pushState(null, '', window.location.pathname + window.location.search);
+        }
       }
     }
+
+    // Auto-open modal if deep-linked via URL hash (e.g. gcertainity.com/#inquire)
+    window.addEventListener('DOMContentLoaded', function() {
+      const hash = window.location.hash;
+      if (hash === '#inquire-institution') {
+        openModal('institution');
+      } else if (hash === '#inquire-fellowship' || hash === '#apply' || hash === '#enroll') {
+        openModal('learner');
+      } else if (hash === '#inquiry' || hash === '#inquire') {
+        openModal('general');
+      }
+    });
+
+    window.addEventListener('popstate', function() {
+      const hash = window.location.hash;
+      if (hash === '#inquire-institution') {
+        openModal('institution');
+      } else if (hash === '#inquire-fellowship' || hash === '#apply' || hash === '#enroll') {
+        openModal('learner');
+      } else if (hash === '#inquiry' || hash === '#inquire') {
+        openModal('general');
+      } else {
+        closeModal();
+      }
+    });
     const modalEl = document.getElementById('gModal');
     if (modalEl) {
       modalEl.addEventListener('click', function(e) {
