@@ -268,8 +268,8 @@
 
     .hero-h1 {
       font-family: 'Space Grotesk', system-ui, sans-serif; font-size: clamp(1.75rem, 2.5vw, 2.3rem);
-      font-weight: 700; line-height: 1.25; color: #fff; letter-spacing: -0.03em; margin-bottom: 24px;
-      min-height: 88px;
+      font-weight: 700; line-height: 1.25; color: #fff; letter-spacing: -0.03em; margin-bottom: 16px;
+      height: auto; min-height: 0;
       display: flex; flex-direction: column; justify-content: flex-start; gap: 6px;
     }
     .hero-line-main, .hero-line-accent {
@@ -1100,6 +1100,13 @@
     }
     .canvas-action-text strong { color: #fff; }
 
+    @media (max-width: 1100px) {
+      .g-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-visual-stage { height: 360px; }
+      .hero-ai-head-img { transform: scale(1.1); max-width: 440px; margin: 0 auto; }
+      .g-stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 900px) {
       .canvas-body-grid { grid-template-columns: 1fr; }
       .canvas-body-grid::after { display: none; }
@@ -1107,6 +1114,114 @@
       .matrix-compare-grid { grid-template-columns: 1fr; }
       .canvas-matrix-base { padding: 24px 20px; }
       .canvas-action-footer { padding: 20px; flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      .g-hero {
+        padding-top: calc(var(--nav-h) + 20px);
+        padding-bottom: 40px;
+      }
+      .g-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .hero-eyebrow {
+        font-size: 0.68rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.12em;
+      }
+      .hero-h1 {
+        font-size: clamp(1.55rem, 6.2vw, 2.05rem);
+        line-height: 1.25;
+        margin-bottom: 14px;
+        height: auto;
+        min-height: 0;
+      }
+      .hero-sub {
+        font-size: 0.92rem;
+        line-height: 1.58;
+        margin-bottom: 22px;
+        color: #94a3b8;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .btn-hero-primary, .btn-hero-sec {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        padding: 13px 20px;
+        font-size: 0.9rem;
+      }
+      .hero-trust-strip {
+        margin-bottom: 22px;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .avatar-stack img {
+        width: 28px;
+        height: 28px;
+      }
+      .trust-text {
+        font-size: 0.74rem;
+      }
+      .stream-pill-bar {
+        gap: 6px;
+        margin-top: 14px;
+      }
+      .stream-pill-tag {
+        font-size: 0.68rem;
+        width: 100%;
+        margin-bottom: 2px;
+      }
+      .stream-pill-item {
+        font-size: 0.72rem;
+        padding: 4px 10px;
+      }
+      .hero-visual-stage {
+        height: 250px;
+        min-height: 0;
+        max-height: 300px;
+        margin-top: 8px;
+      }
+      .hero-ai-head-img {
+        width: 100%;
+        max-width: 280px;
+        max-height: 250px;
+        transform: scale(1);
+        margin: 0 auto;
+        display: block;
+      }
+      .g-stats-bar {
+        grid-template-columns: 1fr;
+        margin-top: 32px;
+      }
+      .stat-card {
+        padding: 16px 14px;
+        gap: 12px;
+      }
+      .stat-icon {
+        width: 38px;
+        height: 38px;
+      }
+      .stat-val {
+        font-size: 1.3rem;
+      }
+      .stat-lbl {
+        font-size: 0.74rem;
+      }
+      .era-shift-banner {
+        margin-top: 24px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+      .era-shift-quote {
+        font-size: 1.05rem;
+      }
     }
   </style>
 </head>
@@ -1157,12 +1272,16 @@
             <span class="gradient-text hero-line-accent">Still competing with humans?</span>
           </h1>
 
-          <div class="hero-actions" style="margin-bottom: 24px;">
+          <p class="hero-sub">
+            Built for learners from <strong>ALL streams &amp; backgrounds</strong>, including CS, Core Engineering, Business, Commerce, Design, &amp; Non-Tech. We teach you the complete end-to-end commercial lifecycle, build production systems, and deliver real business outcomes.
+          </p>
+
+          <div class="hero-actions">
             <a href="#portals" class="btn-hero-primary">Explore Pathways &rarr;</a>
             <button class="btn-hero-sec" onclick="openModal('learner')">Submit Inquiry</button>
           </div>
 
-          <div class="hero-trust-strip" style="margin-bottom: 24px;">
+          <div class="hero-trust-strip">
             <div class="avatar-stack">
               <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="User" />
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80" alt="User" />
@@ -1174,10 +1293,6 @@
               <strong>50+ Institutions</strong> worldwide
             </div>
           </div>
-
-          <p class="hero-sub" style="margin-bottom: 0;">
-            Built for learners from <strong>ALL streams &amp; backgrounds</strong>, including CS, Core Engineering, Business, Commerce, Design, &amp; Non-Tech. We teach you the complete end-to-end commercial lifecycle, build production systems, and deliver real business outcomes.
-          </p>
 
           <div class="stream-pill-bar">
             <span class="stream-pill-tag">✦ FOR ALL STREAMS</span>
