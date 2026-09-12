@@ -2455,24 +2455,32 @@
       e.preventDefault();
       const form = e.target;
       const submitBtn = form.querySelector('button[type="submit"]');
-      const origText = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.innerText = 'Submitting...';
+      const origText = submitBtn ? submitBtn.innerHTML : 'Submit Inquiry &rarr;';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting...';
+      }
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
       try {
         await fetch('https://formsubmit.co/ajax/admissions@gcertainity.com', {
           method: 'POST',
           headers: { 
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: new FormData(form)
+          body: JSON.stringify(data)
         });
       } catch (err) {
-        console.error('FormSubmit notification error:', err);
+        console.warn('FormSubmit AJAX fallback:', err);
       }
 
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = origText;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = origText;
+      }
       closeModal();
 
       const toast = document.createElement('div');
